@@ -1,0 +1,104 @@
+/*
+ * By adding '#my-app' to all rules, we make them
+ * more specific than Bootstrap's default rules.
+ * This forces the browser to use our styles.
+ */
+
+#my-app body {
+    /* We target '#my-app body' instead of just 'body' */
+    background: #f5f8fc;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #333;
+}
+
+#my-app .navbar-custom {
+    background-color: #004aad;
+}
+
+#my-app .navbar-custom .navbar-brand,
+#my-app .navbar-custom .nav-link {
+    color: white !important; /* Kept !important as it's fighting a very specific Bootstrap rule */
+    font-weight: 500;
+}
+
+#my-app .navbar-custom .nav-link:hover {
+    color: #d9e6ff !important;
+}
+
+#my-app .main-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+#my-app .custom-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+}
+
+#my-app .custom-card h2 {
+    color: #004aad;
+    margin-bottom: 1rem;
+}
+
+/* This targets your button AND Bootstrap's default .btn */
+#my-app .btn-custom,
+#my-app .btn {
+    background-color: #1a73e8;
+    color: white;
+    border-radius: 6px;
+    padding: 0.6rem 1.2rem;
+    transition: 0.2s;
+    border: none; /* Add this to override Bootstrap's default border */
+}
+
+#my-app .btn-custom:hover,
+#my-app .btn:hover {
+    background-color: #145ec2;
+    color: white; /* Ensure hover text stays white */
+}
+
+#my-app .table-custom {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#my-app .table-custom th {
+    background-color: #e4efff;
+    color: #004aad;
+    padding: 0.8rem;
+}
+
+#my-app .table-custom td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #ddd;
+}
+
+#my-app .free-row {
+    background-color: #e9ffe9;
+}
+
+#my-app .occupied-row {
+    background-color: #fff2e6;
+}
+
+/* ---------- FOOTER ---------- */
+/* Footer is outside the #my-app body, so it doesn't get the prefix */
+footer {
+    background: #004aad;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+footer a {
+    color: #d9e6ff;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
