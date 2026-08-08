@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Room Locations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ui.css') }}">
+</head>
+<body id="my-app">
+
+<div class="container mt-5">
+
+    <a href="{{ url_for('admin.dashboard') }}">&laquo; Back to Main Dashboard</a>
+
+    <h2 class="my-4">Room Location Management</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">Upload Room Directory</div>
+                <div class="card-body">
+                    <form action="{{ url_for('admin.upload_rooms_csv') }}" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="room_file" class="form-label">Room Locations (.csv file)</label>
+                            <input class="form-control" type="file" id="room_file" name="room_file" accept=".csv" required>
+                            <div class="form-text">
+                                Must be a CSV with columns: <strong>room_name</strong>, <strong>building</strong>, <strong>floor</strong>.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Upload and Overwrite</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header">Current Room Directory (from locations.json)</div>
+                <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Room Name</th>
+                                <th>Building</th>
+                                <th>Floor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for room_name, details in locations %}
+                            <tr>
+                                <td><strong>{{ room_name }}</strong></td>
+                                <td>{{ details.building or 'N/A' }}</td>
+                                <td>{{ details.floor or 'N/A' }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center text-muted">No locations.json file found or file is empty.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
